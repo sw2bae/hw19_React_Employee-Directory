@@ -5,7 +5,7 @@ import TableBody from "../TableBody"
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function TableContainer() {
     return (
-        <table class="table table-striped">
+        <table className="table table-striped">
             <TableHead />
             <TableBody />
         </table>
