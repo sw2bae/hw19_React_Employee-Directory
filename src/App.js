@@ -14,12 +14,22 @@ function App() {
   const [developerState, setDeveloperState] = useState(UserModel);
 
   useEffect(() => {
-    API.getUsers().then();
-  })
+    API.getUsers().then(results => {
+      setDeveloperState(
+        {
+          image: results[0].picture.thumbnail,
+          name: results[0].name.first + " " + results[0].name.last,
+          phone: results[0].phone,
+          email: results[0].email,
+          DOB: results[0].dob.date
+        }
+      );
+    });
+  }, []);
 
 
   return (
-    <UserProvider>
+    <UserProvider value={developerState}>
       <Nav />
       <SearchFrom />
       <TableContainer />
