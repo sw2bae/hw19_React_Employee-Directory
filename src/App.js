@@ -14,20 +14,33 @@ function App() {
   const [developerState, setDeveloperState] = useState(UserModel);
 
   useEffect(() => {
-    API.getUsers().then(results => {
+    API.getUsers().then(res => {
+      // console.log(res);
+      let image = [];
+      let name = [];
+      let phone = [];
+      let email = [];
+      let DOB = [];
+      for (let i = 0; i < res.data.results.length; i++) {
+        image.push(res.data.results[i].picture.thumbnail);
+        name.push(res.data.results[i].name.first + " " + res.data.results[i].name.last);
+        phone.push(res.data.results[i].phone);
+        email.push(res.data.results[i].email);
+        DOB.push(res.data.results[i].dob.date);
+      };
       setDeveloperState(
         {
-          image: results[0].picture.thumbnail,
-          name: results[0].name.first + " " + results[0].name.last,
-          phone: results[0].phone,
-          email: results[0].email,
-          DOB: results[0].dob.date
+          image: image,
+          name: name,
+          phone: phone,
+          email: email,
+          DOB: DOB
         }
       );
     });
   }, []);
 
-
+  console.log(developerState);
   return (
     <UserProvider value={developerState}>
       <Nav />
