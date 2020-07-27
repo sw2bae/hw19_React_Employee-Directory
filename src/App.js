@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import Nav from "./components/Nav";
 import SearchFrom from "./components/SearchForm";
 import TableContainer from "./components/TableContainer";
@@ -15,32 +15,37 @@ function App() {
 
   useEffect(() => {
     API.getUsers().then(res => {
-      // console.log(res);
-      let image = [];
-      let name = [];
-      let phone = [];
-      let email = [];
-      let DOB = [];
+      let users = [];
       for (let i = 0; i < res.data.results.length; i++) {
-        image.push(res.data.results[i].picture.thumbnail);
-        name.push(res.data.results[i].name.first + " " + res.data.results[i].name.last);
-        phone.push(res.data.results[i].phone);
-        email.push(res.data.results[i].email);
-        DOB.push(res.data.results[i].dob.date);
-      };
-      setDeveloperState(
-        {
-          image: image,
-          name: name,
-          phone: phone,
-          email: email,
-          DOB: DOB
+        let user = {
+          id: i,
+          image: res.data.results[i].picture.thumbnail,
+          name: res.data.results[i].name.first + " " + res.data.results[i].name.last,
+          phone: res.data.results[i].phone,
+          email: res.data.results[i].email,
+          DOB: res.data.results[i].dob.date
         }
-      );
+        users.push(user);
+      };
+      setDeveloperState(users);
     });
   }, []);
 
-  console.log(developerState);
+  // const inputRef = useRef();
+  // const [items, dispatch] = useReducer((state, action) => {
+  //   switch(action.type){
+  //     case 'SEARCH' :
+  //       return [
+
+  //       ];
+  //   }
+  // }, [developerState]);
+
+  // function handleSearch(){
+
+  // }
+
+  // console.log(developerState);
   return (
     <UserProvider value={developerState}>
       <Nav />
