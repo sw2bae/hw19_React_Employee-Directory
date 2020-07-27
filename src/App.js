@@ -1,21 +1,18 @@
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from "./components/Nav";
 import SearchFrom from "./components/SearchForm";
 import TableContainer from "./components/TableContainer";
 import { UserProvider } from "./utils/userContext"
 import API from "./utils/API";
-import UserModel from "./utils/userContext";
-
 import "./App.css";
 
-
 function App() {
-
-  const [developerState, setDeveloperState] = useState(UserModel);
+  // const [search, setSearch] = useState();
+  const [developerState, setDeveloperState] = useState([]);
 
   useEffect(() => {
     API.getUsers().then(res => {
-      let users = [];
+      const users = [];
       for (let i = 0; i < res.data.results.length; i++) {
         let user = {
           id: i,
@@ -30,26 +27,14 @@ function App() {
       setDeveloperState(users);
     });
   }, []);
-
-  // const inputRef = useRef();
-  // const [items, dispatch] = useReducer((state, action) => {
-  //   switch(action.type){
-  //     case 'SEARCH' :
-  //       return [
-
-  //       ];
-  //   }
-  // }, [developerState]);
-
-  // function handleSearch(){
-
-  // }
-
-  // console.log(developerState);
+  function handleSearch(e) {
+    const { value } = e.target;
+    console.log(value);
+  }
   return (
     <UserProvider value={developerState}>
       <Nav />
-      <SearchFrom />
+      <SearchFrom handleSearch={handleSearch} />
       <TableContainer />
     </UserProvider>
   );

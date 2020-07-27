@@ -1,15 +1,6 @@
 import React, { createContext, useContext } from "react";
 
-const UserModel = {
-    id: '',
-    image: '',
-    name: '',
-    phone: '',
-    email: '',
-    DOB: ''
-};
-
-const UserContext = createContext(UserModel);
+const UserContext = createContext();
 
 export function UserProvider({ children, value }) {
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
@@ -18,7 +9,4 @@ export function UserProvider({ children, value }) {
 export function useUserContext() {
     return useContext(UserContext);
 };
-
-export default UserModel;
-
 
