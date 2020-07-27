@@ -7,7 +7,6 @@ import API from "./utils/API";
 import "./App.css";
 
 function App() {
-  // const [search, setSearch] = useState();
   const [developerState, setDeveloperState] = useState([]);
 
   useEffect(() => {
@@ -27,10 +26,17 @@ function App() {
       setDeveloperState(users);
     });
   }, []);
+
   function handleSearch(e) {
+
     const { value } = e.target;
-    console.log(value);
+    let searchbyName = developerState.filter(data =>
+      new RegExp(value, "i").test(data.name)
+    );
+    console.log(searchbyName);
+    setDeveloperState(searchbyName);
   }
+
   return (
     <UserProvider value={developerState}>
       <Nav />
