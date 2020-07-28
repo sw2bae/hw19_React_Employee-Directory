@@ -9,9 +9,10 @@ import "./App.css";
 function App() {
   const [developerState, setDeveloperState] = useState([]);
 
+
   useEffect(() => {
     API.getUsers().then(res => {
-      const users = [];
+      var users = [];
       for (let i = 0; i < res.data.results.length; i++) {
         let user = {
           id: i,
@@ -28,20 +29,40 @@ function App() {
   }, []);
 
   function handleSearch(e) {
-
     const { value } = e.target;
     let searchbyName = developerState.filter(data =>
       new RegExp(value, "i").test(data.name)
     );
-    console.log(searchbyName);
+    // console.log(searchbyName);
     setDeveloperState(searchbyName);
   }
+
+
+  function sortByChar(e) {
+    e.preventDefault();
+    developerState.sort((a, b) => {
+      if (a < b) {
+        return -1;
+      }
+      if (a > b) {
+        return 1;
+      }
+      return 0;
+    });
+    setDeveloperState(developerState);
+    alert("hi");
+  }
+
+  // const sortByNum = () => {
+  //   // e.preventDefault();
+  //   alert("hello");
+  // }
 
   return (
     <UserProvider value={developerState}>
       <Nav />
       <SearchFrom handleSearch={handleSearch} />
-      <TableContainer />
+      <TableContainer sortByChar={sortByChar} />
     </UserProvider>
   );
 }

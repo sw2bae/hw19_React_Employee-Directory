@@ -1,5 +1,4 @@
 import React from "react";
-
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function SearchForm(props) {
     return (
@@ -7,7 +6,6 @@ function SearchForm(props) {
             <div className="form-group">
                 <input
                     onChange={props.handleSearch}
-                    // value={props.value}
                     name="term"
                     type="text"
                     className="form-control"

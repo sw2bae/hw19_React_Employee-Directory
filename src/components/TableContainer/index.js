@@ -3,10 +3,10 @@ import TableHead from "../TableHead";
 import TableBody from "../TableBody"
 
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
-function TableContainer() {
+function TableContainer({ sortByChar }) {
     return (
         <table className="table table-striped">
-            <TableHead />
+            <TableHead onClick={sortByChar} />
             <TableBody />
         </table>
     );
