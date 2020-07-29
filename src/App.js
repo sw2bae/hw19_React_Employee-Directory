@@ -7,12 +7,14 @@ import API from "./utils/API";
 import "./App.css";
 
 function App() {
-  const [developerState, setDeveloperState] = useState([]);
+  // const [developerState, setDeveloperState] = useState([]);
+  const [users, setUsers] = useState([{}]);
+  const [filteredUsers, setFilteredUsers] = useState([{}]);
 
 
   useEffect(() => {
     API.getUsers().then(res => {
-      var users = [];
+      let hold = [];
       for (let i = 0; i < res.data.results.length; i++) {
         let user = {
           id: i,
@@ -22,44 +24,44 @@ function App() {
           email: res.data.results[i].email,
           DOB: res.data.results[i].dob.date
         }
-        users.push(user);
+        hold.push(user);
       };
-      setDeveloperState(users);
+      setUsers(hold);
+      setFilteredUsers(hold);
     });
   }, []);
 
   function handleSearch(e) {
     const { value } = e.target;
-    let searchbyName = developerState.filter(data =>
-      new RegExp(value, "i").test(data.name)
-    );
+    // let searchbyName = developerState.filter(data =>
+    //   new RegExp(value, "i").test(data.name)
+    // );
     // console.log(searchbyName);
-    setDeveloperState(searchbyName);
+    setFilteredUsers(users.filter(data =>
+      new RegExp(value, "i").test(data.name)
+    ));
   }
 
 
   function sortByChar(e) {
     e.preventDefault();
-    developerState.sort((a, b) => {
-      if (a < b) {
-        return -1;
-      }
-      if (a > b) {
-        return 1;
-      }
-      return 0;
-    });
-    setDeveloperState(developerState);
+
+
+    // developerState.sort((a, b) => {
+    //   if (a < b) {
+    //     return -1;
+    //   }
+    //   if (a > b) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // });
+    // setDeveloperState([]);
     alert("hi");
+    // console.log(this);
   }
-
-  // const sortByNum = () => {
-  //   // e.preventDefault();
-  //   alert("hello");
-  // }
-
   return (
-    <UserProvider value={developerState}>
+    <UserProvider value={filteredUsers}>
       <Nav />
       <SearchFrom handleSearch={handleSearch} />
       <TableContainer sortByChar={sortByChar} />

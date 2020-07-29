@@ -6,7 +6,7 @@ import TableBody from "../TableBody"
 function TableContainer({ sortByChar }) {
     return (
         <table className="table table-striped">
-            <TableHead onClick={sortByChar} />
+            <TableHead sortByChar={sortByChar} />
             <TableBody />
         </table>
     );
