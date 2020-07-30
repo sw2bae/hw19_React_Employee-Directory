@@ -33,38 +33,29 @@ function App() {
 
   function handleSearch(e) {
     const { value } = e.target;
-    // let searchbyName = developerState.filter(data =>
-    //   new RegExp(value, "i").test(data.name)
-    // );
-    // console.log(searchbyName);
-    setFilteredUsers(users.filter(data =>
+    let searchByName = users.filter(data =>
       new RegExp(value, "i").test(data.name)
-    ));
+    );
+
+    setFilteredUsers(searchByName);
   }
 
 
   function sortByChar(e) {
     e.preventDefault();
-
-
-    // developerState.sort((a, b) => {
-    //   if (a < b) {
-    //     return -1;
-    //   }
-    //   if (a > b) {
-    //     return 1;
-    //   }
-    //   return 0;
-    // });
-    // setDeveloperState([]);
-    alert("hi");
-    // console.log(this);
+    setFilteredUsers({});
   }
+
+  function sortByNum(e) {
+    e.preventDefault();
+    alert("hello")
+  }
+
   return (
     <UserProvider value={filteredUsers}>
       <Nav />
       <SearchFrom handleSearch={handleSearch} />
-      <TableContainer sortByChar={sortByChar} />
+      <TableContainer sortByChar={sortByChar} sortByNum={sortByNum} />
     </UserProvider>
   );
 }
