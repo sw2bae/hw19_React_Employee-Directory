@@ -7,27 +7,25 @@ import API from "./utils/API";
 import "./App.css";
 
 function App() {
-  // const [developerState, setDeveloperState] = useState([]);
   const [users, setUsers] = useState([{}]);
   const [filteredUsers, setFilteredUsers] = useState([{}]);
 
-
   useEffect(() => {
     API.getUsers().then(res => {
-      let hold = [];
+      let dataInit = [];
       for (let i = 0; i < res.data.results.length; i++) {
         let user = {
-          id: i,
+          uuid: res.data.results[i].login.uuid,
           image: res.data.results[i].picture.thumbnail,
           name: res.data.results[i].name.first + " " + res.data.results[i].name.last,
           phone: res.data.results[i].phone,
           email: res.data.results[i].email,
-          DOB: res.data.results[i].dob.date
+          DOB: res.data.results[i].dob.date.substring(0, 10)
         }
-        hold.push(user);
+        dataInit.push(user);
       };
-      setUsers(hold);
-      setFilteredUsers(hold);
+      setUsers(dataInit);
+      setFilteredUsers(dataInit);
     });
   }, []);
 
@@ -36,19 +34,45 @@ function App() {
     let searchByName = users.filter(data =>
       new RegExp(value, "i").test(data.name)
     );
-
+    // console.log(searchByName);
     setFilteredUsers(searchByName);
   }
 
 
   function sortByChar(e) {
-    e.preventDefault();
-    setFilteredUsers({});
+    let byName = function (a, b) {
+      var nameA = a.name.replace(/ /gi, "").toUpperCase();
+      var nameB = b.name.replace(/ /gi, "").toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+      return 0;
+    }
+    const filteredUsersCopy = [...filteredUsers];
+    let sortedbyName = filteredUsersCopy.sort(byName);
+    // console.log(sortedbyName);
+    setFilteredUsers(sortedbyName);
   }
 
   function sortByNum(e) {
-    e.preventDefault();
-    alert("hello")
+    let byNum = function (a, b) {
+      var numA = a.DOB.replace("-", "");
+      var numB = b.DOB.replace("-", "");
+      if (numA < numB) {
+        return -1;
+      }
+      if (numA > numB) {
+        return 1;
+      }
+      return 0;
+    }
+    const filteredUsersCopy2 = [...filteredUsers];
+    let sortedbyNum = filteredUsersCopy2.sort(byNum);
+    // console.log(sortedbyNum);
+    setFilteredUsers(sortedbyNum);
   }
 
   return (

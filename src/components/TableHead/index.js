@@ -6,10 +6,16 @@ function TableHead({ sortByChar, sortByNum }) {
         <thead>
             <tr>
                 <th scope="col">Image</th>
-                <th scope="col">Name<button type="button" mode="AtoZ" onClick={sortByChar}></button></th>
+                <th scope="col">Name
+                <button type="button" mode="A" onClick={sortByChar}>A</button>
+                    {/* <button type="button" mode="Z" onClick={sortByChar}>Z</button> */}
+                </th>
                 <th scope="col">Phone</th>
                 <th scope="col">Email</th>
-                <th scope="col">DOB<button type="button" mode="0to10" onClick={sortByNum}></button></th>
+                <th scope="col">DOB
+                <button type="button" mode="0" onClick={sortByNum}>↑</button>
+                    {/* <button type="button" mode="10" onClick={sortByNum}>Young</button> */}
+                </th>
             </tr>
         </thead>
     );
