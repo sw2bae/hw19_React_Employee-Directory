@@ -48,51 +48,79 @@ function App() {
 
 
   function sortByChar(e) {
-    let byName = function (a, b) {
-      var nameA = a.name.replace(/ /gi, "").toUpperCase();
-      var nameB = b.name.replace(/ /gi, "").toUpperCase();
-      if (nameA < nameB) {
-        return -1;
-      }
-      if (nameA > nameB) {
-        return 1;
-      }
-      return 0;
-    }
-    const filteredUsersCopy = [...filteredUsers];
-    let sortedbyName = filteredUsersCopy.sort(byName);
-    // console.log(sortedbyName);
-    setFilteredUsers(sortedbyName);
-
     if (btnStatus.charmode === "⬇") {
       setBtnStatus({ ...btnStatus, charmode: "⬆" });
+      let byName = function (a, b) {
+        var nameA = a.name.replace(/ /gi, "").toUpperCase();
+        var nameB = b.name.replace(/ /gi, "").toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      }
+      const filteredUsersCopy0 = [...filteredUsers];
+      let sortedbyName = filteredUsersCopy0.sort(byName);
+      // console.log(sortedbyName);
+      setFilteredUsers(sortedbyName);
     } else {
       setBtnStatus({ ...btnStatus, charmode: "⬇" });
+      let byName = function (a, b) {
+        var nameA = a.name.replace(/ /gi, "").toUpperCase();
+        var nameB = b.name.replace(/ /gi, "").toUpperCase();
+        if (nameA > nameB) {
+          return -1;
+        }
+        if (nameA < nameB) {
+          return 1;
+        }
+        return 0;
+      }
+      const filteredUsersCopy1 = [...filteredUsers];
+      let sortedbyName = filteredUsersCopy1.sort(byName);
+      // console.log(sortedbyName);
+      setFilteredUsers(sortedbyName);
     }
     // console.log(btnStatus);
   }
 
   function sortByNum(e) {
-    let byNum = function (a, b) {
-      var numA = a.DOB.replace("-", "");
-      var numB = b.DOB.replace("-", "");
-      if (numA < numB) {
-        return -1;
-      }
-      if (numA > numB) {
-        return 1;
-      }
-      return 0;
-    }
-    const filteredUsersCopy2 = [...filteredUsers];
-    let sortedbyNum = filteredUsersCopy2.sort(byNum);
-    // console.log(sortedbyNum);
-    setFilteredUsers(sortedbyNum);
-
     if (btnStatus.nummode === "⬇") {
       setBtnStatus({ ...btnStatus, nummode: "⬆" });
+      let byNum = function (a, b) {
+        var numA = a.DOB.replace("-", "");
+        var numB = b.DOB.replace("-", "");
+        if (numA < numB) {
+          return -1;
+        }
+        if (numA > numB) {
+          return 1;
+        }
+        return 0;
+      }
+      const filteredUsersCopy2 = [...filteredUsers];
+      let sortedbyNum = filteredUsersCopy2.sort(byNum);
+      // console.log(sortedbyNum);
+      setFilteredUsers(sortedbyNum);
     } else {
       setBtnStatus({ ...btnStatus, nummode: "⬇" });
+      let byNum = function (a, b) {
+        var numA = a.DOB.replace("-", "");
+        var numB = b.DOB.replace("-", "");
+        if (numA > numB) {
+          return -1;
+        }
+        if (numA < numB) {
+          return 1;
+        }
+        return 0;
+      }
+      const filteredUsersCopy3 = [...filteredUsers];
+      let sortedbyNum = filteredUsersCopy3.sort(byNum);
+      // console.log(sortedbyNum);
+      setFilteredUsers(sortedbyNum);
     }
     // console.log(btnStatus);
   }
