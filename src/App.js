@@ -5,10 +5,18 @@ import TableContainer from "./components/TableContainer";
 import { UserProvider } from "./utils/userContext"
 import API from "./utils/API";
 import "./App.css";
+import { BtnProvider } from "./utils/btnContext";
 
 function App() {
   const [users, setUsers] = useState([{}]);
   const [filteredUsers, setFilteredUsers] = useState([{}]);
+
+  const [btnStatus, setBtnStatus] = useState({
+    charmode: "⬇",
+    nummode: "⬇"
+  }
+  );
+
 
   useEffect(() => {
     API.getUsers().then(res => {
@@ -55,6 +63,13 @@ function App() {
     let sortedbyName = filteredUsersCopy.sort(byName);
     // console.log(sortedbyName);
     setFilteredUsers(sortedbyName);
+
+    if (btnStatus.charmode === "⬇") {
+      setBtnStatus({ ...btnStatus, charmode: "⬆" });
+    } else {
+      setBtnStatus({ ...btnStatus, charmode: "⬇" });
+    }
+    // console.log(btnStatus);
   }
 
   function sortByNum(e) {
@@ -73,13 +88,22 @@ function App() {
     let sortedbyNum = filteredUsersCopy2.sort(byNum);
     // console.log(sortedbyNum);
     setFilteredUsers(sortedbyNum);
+
+    if (btnStatus.nummode === "⬇") {
+      setBtnStatus({ ...btnStatus, nummode: "⬆" });
+    } else {
+      setBtnStatus({ ...btnStatus, nummode: "⬇" });
+    }
+    // console.log(btnStatus);
   }
 
   return (
     <UserProvider value={filteredUsers}>
       <Nav />
       <SearchFrom handleSearch={handleSearch} />
-      <TableContainer sortByChar={sortByChar} sortByNum={sortByNum} />
+      <BtnProvider value={btnStatus}>
+        <TableContainer sortByChar={sortByChar} sortByNum={sortByNum} />
+      </BtnProvider>
     </UserProvider>
   );
 }
