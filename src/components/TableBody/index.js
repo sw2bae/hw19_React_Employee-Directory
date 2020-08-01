@@ -4,7 +4,7 @@ import { useUserContext } from "../../utils/userContext";
 // Depending on the current path, this component sets the "active" class on the appropriate navigation link item
 function TableBody() {
     const data = useUserContext();
-    // console.log(data);
+    console.log(data);
     return (
         <tbody>
             {data.map((user, index) => {
